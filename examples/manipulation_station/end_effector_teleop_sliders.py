@@ -197,7 +197,7 @@ parser.add_argument(
 parser.add_argument(
     '--setup', type=str, default='manipulation_class',
     help="The manipulation station setup to simulate. ",
-    choices=['manipulation_class', 'clutter_clearing', 'planar'])
+    choices=['manipulation_class', 'clutter_clearing', 'planar', 'table'])
 
 MeshcatVisualizer.add_argparse_argument(parser)
 args = parser.parse_args()
@@ -223,6 +223,11 @@ else:
             station.AddManipulandFromFile(model_file, X_WObject)
     elif args.setup == 'planar':
         station.SetupPlanarIiwaStation()
+        station.AddManipulandFromFile(
+            "drake/examples/manipulation_station/models/061_foam_brick.sdf",
+            RigidTransform(RotationMatrix.Identity(), [0.6, 0, 0]))
+    elif args.setup == 'table':
+        station.SetupIiwaOnTableStation()
         station.AddManipulandFromFile(
             "drake/examples/manipulation_station/models/061_foam_brick.sdf",
             RigidTransform(RotationMatrix.Identity(), [0.6, 0, 0]))

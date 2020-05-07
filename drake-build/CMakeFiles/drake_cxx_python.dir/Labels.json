@@ -1,0 +1,43 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/maggiewang/drake/drake-build/CMakeFiles/drake_cxx_python"
+		},
+		{
+			"file" : "/home/maggiewang/drake/drake-build/CMakeFiles/drake_cxx_python.rule"
+		},
+		{
+			"file" : "/home/maggiewang/drake/drake-build/CMakeFiles/drake_cxx_python-complete.rule"
+		},
+		{
+			"file" : "/home/maggiewang/drake/drake-build/drake_cxx_python-prefix/src/drake_cxx_python-stamp/drake_cxx_python-install.rule"
+		},
+		{
+			"file" : "/home/maggiewang/drake/drake-build/drake_cxx_python-prefix/src/drake_cxx_python-stamp/drake_cxx_python-mkdir.rule"
+		},
+		{
+			"file" : "/home/maggiewang/drake/drake-build/drake_cxx_python-prefix/src/drake_cxx_python-stamp/drake_cxx_python-download.rule"
+		},
+		{
+			"file" : "/home/maggiewang/drake/drake-build/drake_cxx_python-prefix/src/drake_cxx_python-stamp/drake_cxx_python-update.rule"
+		},
+		{
+			"file" : "/home/maggiewang/drake/drake-build/drake_cxx_python-prefix/src/drake_cxx_python-stamp/drake_cxx_python-patch.rule"
+		},
+		{
+			"file" : "/home/maggiewang/drake/drake-build/drake_cxx_python-prefix/src/drake_cxx_python-stamp/drake_cxx_python-configure.rule"
+		},
+		{
+			"file" : "/home/maggiewang/drake/drake-build/drake_cxx_python-prefix/src/drake_cxx_python-stamp/drake_cxx_python-build.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"drake_cxx_python"
+		],
+		"name" : "drake_cxx_python"
+	}
+}

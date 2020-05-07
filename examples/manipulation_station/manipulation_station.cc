@@ -348,6 +348,31 @@ void ManipulationStation<T>::SetupPlanarIiwaStation() {
 }
 
 template <typename T>
+void ManipulationStation<T>::SetupIiwaOnTableStation(IiwaCollisionModel collision_model) {
+  DRAKE_DEMAND(setup_ == Setup::kNone);
+  setup_ = Setup::kIiwaOnTable;
+
+  // Add the tables.
+  {
+    const std::string sdf_path = FindResourceOrThrow(
+        "drake/examples/kuka_iiwa_arm/models/table/"
+        "extra_heavy_duty_table_surface_only_collision.sdf");
+
+    const double table_height = 0.7645;
+    internal::AddAndWeldModelFrom(
+        sdf_path, "robot_table", plant_->world_frame(), "link",
+        RigidTransform<double>(Vector3d(0, 0, -table_height)), plant_);
+    internal::AddAndWeldModelFrom(
+        sdf_path, "work_table", plant_->world_frame(), "link",
+        RigidTransform<double>(Vector3d(0.75, 0, -table_height)), plant_);
+  }
+
+  // Add the default iiwa/wsg models.
+  AddDefaultIiwa(collision_model);
+  AddDefaultWsg();
+}
+
+template <typename T>
 int ManipulationStation<T>::num_iiwa_joints() const {
   DRAKE_DEMAND(iiwa_model_.model_instance.is_valid());
   return plant_->num_positions(iiwa_model_.model_instance);
@@ -514,6 +539,19 @@ void ManipulationStation<T>::Finalize(
       for (const auto body_index : object_ids_) {
         const multibody::Body<T>& body = plant_->get_body(body_index);
         plant_->SetFreeBodyRandomPositionDistribution(body, xyz);
+      }
+      break;
+    }
+    case Setup::kIiwaOnTable: {
+      q0_iiwa << 0, 0.6, 0, -1.75, 0, 1.0, 0;
+
+      std::uniform_real_distribution<symbolic::Expression> x(0.4, 0.65),
+          y(-0.35, 0.35), z(0, 0.05);
+      const Vector3<symbolic::Expression> xyz{x(), y(), z()};
+      for (const auto body_index : object_ids_) {
+        const multibody::Body<T>& body = plant_->get_body(body_index);
+        plant_->SetFreeBodyRandomPositionDistribution(body, xyz);
+        plant_->SetFreeBodyRandomRotationDistributionToUniform(body);
       }
       break;
     }

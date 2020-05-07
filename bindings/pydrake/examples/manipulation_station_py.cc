@@ -53,6 +53,10 @@ PYBIND11_MODULE(manipulation_station, m) {
       .def("SetupPlanarIiwaStation",
           &ManipulationStation<T>::SetupPlanarIiwaStation,
           doc.ManipulationStation.SetupPlanarIiwaStation.doc)
+      .def("SetupIiwaOnTableStation",
+          &ManipulationStation<T>::SetupIiwaOnTableStation,
+          py::arg("collision_model") = IiwaCollisionModel::kNoCollision,
+          doc.ManipulationStation.SetupIiwaOnTableStation.doc)
       .def("AddManipulandFromFile",
           &ManipulationStation<T>::AddManipulandFromFile, py::arg("model_file"),
           py::arg("X_WObject"),
